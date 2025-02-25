@@ -1,0 +1,26 @@
+name: shinycms
+services:
+  app_shinycms:  # Add web service
+    container_name: app_shinycms
+    networks:
+      - shinycms_network
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile
+    image: app_shinycms:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - ENV APP_NAME=ShinyCMS
+	    - APP_PORT=6174
+	    - APP_USER=shinycms
+      - APP_DIR=/opt/shinycms
+      - SHINYCMS_CONFIG=/opt/shinycms/config/shinycms.conf
+    volumes:
+      - ".:/app"
+volumes:
+  app_shinycms_data:
+    name: app_shinycms_data
+networks:
+  shinycms_network:
+    name: shinycms_network
